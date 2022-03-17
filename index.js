@@ -17,13 +17,8 @@ info(`URL: ${payload.repository.url}`);
 info(`Org: ${repoOrg}`);
 info(`Repo: ${repoName}`);
 const ref = context.ref;
+const ref_name = context.ref_name;
 
-const getBranch = () => {
-  if (ref.startsWith("refs/heads/")) {
-    return ref.substring(11);
-  }
-  return ref;
-};
 const getTag = () => {
   if (ref.startsWith("refs/tags/")) {
     return ref.substring(10);
@@ -52,22 +47,17 @@ const body = {
 };
 
 const tag = getTag();
-const branch = getBranch();
 
-if (tag) {
-  Object.assign(body, { tag });
-} else {
-  Object.assign(body, { branch });
-}
+Object.assign(body, { ref_name });
 
 const url = `https://circleci.com/api/v2/project/gh/${repoOrg}/${repoName}/pipeline`;
 
 info(`Triggering CircleCI Pipeline for ${repoOrg}/${repoName}`);
 info(`Triggering URL: ${url}`);
 if (tag) {
-  info(`Triggering tag: ${tag}`);
+  info(`Triggering tag: ${ref_name}`);
 } else {
-  info(`Triggering branch: ${branch}`);
+  info(`Triggering branch: ${ref_name}`);
 }
 info(`Parameters:\n${JSON.stringify(parameters)}`);
 endGroup();
