@@ -12709,19 +12709,19 @@ const [, , repoOrg, repoName] = pattern.exec(payload.repository.url);
 (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(`Org: ${repoOrg}`);
 (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(`Repo: ${repoName}`);
 const ref = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.ref;
-const headRef = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.head_ref;
 
 const getBranch = () => {
   if (ref.startsWith("refs/heads/")) {
     return ref.substring(11);
   }
 
-  if (headRef != undefined) {
-    return headRef;
+  if (process.env.BRANCH != undefined) {
+    return process.env.BRANCH;
   }
 
   return ref;
 };
+
 const getTag = () => {
   if (ref.startsWith("refs/tags/")) {
     return ref.substring(10);
