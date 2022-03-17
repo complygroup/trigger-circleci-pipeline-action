@@ -12711,12 +12711,6 @@ const [, , repoOrg, repoName] = pattern.exec(payload.repository.url);
 const ref = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.ref;
 const ref_name = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.ref_name;
 
-const getBranch = () => {
-  if (ref.startsWith("refs/heads/")) {
-    return ref.substring(11);
-  }
-  return ref;
-};
 const getTag = () => {
   if (ref.startsWith("refs/tags/")) {
     return ref.substring(10);
@@ -12745,7 +12739,6 @@ const body = {
 };
 
 const tag = getTag();
-const branch = getBranch();
 
 Object.assign(body, { ref_name });
 
