@@ -17,19 +17,19 @@ info(`URL: ${payload.repository.url}`);
 info(`Org: ${repoOrg}`);
 info(`Repo: ${repoName}`);
 const ref = context.ref;
-const headRef = context.head_ref;
 
 const getBranch = () => {
   if (ref.startsWith("refs/heads/")) {
     return ref.substring(11);
   }
 
-  if (headRef != undefined) {
-    return headRef;
+  if (process.env.BRANCH != undefined) {
+    return process.env.BRANCH;
   }
 
   return ref;
 };
+
 const getTag = () => {
   if (ref.startsWith("refs/tags/")) {
     return ref.substring(10);
