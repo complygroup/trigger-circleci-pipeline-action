@@ -24,7 +24,7 @@ const getBranch = () => {
     return ref.substring(11);
   }
 
-  if (headRef != undefined){
+  if (headRef != undefined) {
     return headRef;
   }
 
